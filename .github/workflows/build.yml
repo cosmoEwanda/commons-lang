@@ -53,4 +53,14 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: mvn -B -e -X verify org.sonarsource.scanner.maven:sonar-maven-plugin:5.5.0.6356:sonar -Dsonar.projectKey=commons-lang -Dsonar.projectName='commons-lang'
+        - name: Build and analyze
+  env:
+    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+  run: |
+    mvn -version
+    mvn -B verify
+    mvn -B sonar:sonar \
+      -Dsonar.projectKey=commons-lang \
+      -Dsonar.projectName=commons-lang
+
