@@ -49,18 +49,15 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        - name: Build and analyze
-  env:
-    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-    SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-  run: |
-    mvn -version
-    mvn -B verify
-    mvn -B sonar:sonar \
-      -Dsonar.projectKey=commons-lang \
-      -Dsonar.projectName=commons-lang
+        run: |
+          mvn -version
+          mvn -B verify
+          mvn -B sonar:sonar \
+            -Dsonar.projectKey=commons-lang \
+            -Dsonar.projectName=commons-lang
 
